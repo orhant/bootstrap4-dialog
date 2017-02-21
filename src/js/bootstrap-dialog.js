@@ -233,6 +233,8 @@
         type: BootstrapDialog.TYPE_PRIMARY,
         size: BootstrapDialog.SIZE_NORMAL,
         cssClass: '',
+        //Added the title icon class
+        titleIconCssClass:'',
         title: null,
         message: null,
         nl2br: true,
@@ -451,7 +453,8 @@
             return this;
         },
         createModalHeader: function () {
-            return $('<div class="modal-header"></div>');
+            //remove default padding from title
+            return $('<div class="modal-header" style="padding-bottom: 0px;"></div>');
         },
         getModalHeader: function () {
             return this.$modalHeader;
@@ -777,28 +780,39 @@
             return BootstrapDialog.NAMESPACE + '-' + name;
         },
         createHeaderContent: function () {
-            var $container = $('<div></div>');
+            //update to take up the entire space
+            var $container = $('<div style="width:100%"></div>');
             $container.addClass(this.getNamespace('header'));
-
+            
+            //title icon
+            $container.append(this.createTitleIconContent());
             // title
             $container.append(this.createTitleContent());
 
             // Close button
-            $container.prepend(this.createCloseButton());
+            // Given move to flexbox, alignment of dismiss icons in the header is likely broken as we?e no longer using floats. Floated content comes first, but with flexbox that? no longer the case. Update your dismiss icons to come after modal titles to fix.
+            $container.append(this.createCloseButton());
 
             return $container;
         },
+        
         createTitleContent: function () {
             var $title = $('<div></div>');
             $title.addClass(this.getNamespace('title'));
 
             return $title;
         },
+        
+        createTitleIconContent: function () {
+            var $title = $('<span aria-hidden="true"><i' + this.options.titleIconCssClass + '><i></span>');
+            return $title;
+        },
         createCloseButton: function () {
             var $container = $('<div></div>');
             $container.addClass(this.getNamespace('close-button'));
-            var $icon = $('<button class="close"></button>');
-            $icon.append(this.options.closeIcon);
+            //alpha 6 close button updates
+            var $icon = $('<button type="button" class="close" aria-label="Close" data-dismiss="modal"></button>');
+            $icon.append('<span aria-hidden="true">' + this.options.closeIcon + '</span>');
             $container.append($icon);
             $container.on('click', {dialog: this}, function (event) {
                 event.data.dialog.close();
@@ -918,7 +932,7 @@
             $button.enable = function () {
                 var $this = this;
                 $this.toggleEnable(true);
-
+f
                 return $this;
             };
             $button.disable = function () {
@@ -1154,7 +1168,7 @@
             this.getModalHeader().append(this.createHeaderContent());
             this.getModalBody().append(this.createBodyContent());
             this.getModal().data('bs.modal', new BootstrapDialogModal(this.getModalForBootstrapDialogModal(), {
-                backdrop: 'static',
+                backdrop: true,
                 keyboard: false,
                 show: false
             }));
@@ -1174,8 +1188,8 @@
         },
         open: function () {
             !this.isRealized() && this.realize();
+            $('body').add(this.getModal()); //Must be added to the dom before calling show for alpha 6
             this.getModal().modal('show');
-
             return this;
         },
         close: function () {

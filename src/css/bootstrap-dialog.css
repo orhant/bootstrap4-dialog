@@ -32,6 +32,7 @@
   opacity: 1;
   filter: alpha(opacity=100);
 }
+
 .bootstrap-dialog.type-default .modal-header {
   background-color: #fff;
 }
