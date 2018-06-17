@@ -39,8 +39,8 @@
      * BootstrapDialogModal === Modified Modal.
      * ================================================ */
     var Modal = $.fn.modal.Constructor;
-    var BootstrapDialogModal = function(element, options) {
-        if (/4\.0\.\d+(-(alpha|beta|rc)\.\d+)?/.test($.fn.modal.Constructor.VERSION)) {
+    var BootstrapDialogModal = function (element, options) {
+        if (/4\.1\.\d+/.test($.fn.modal.Constructor.VERSION)) { //FIXME for BootstrapV4
             return new Modal(element, options);
         } else {
             Modal.call(this, element, options);
@@ -54,8 +54,8 @@
             version = 'v3.2';
         } else if (/3\.3\.[1,2]/.test($.fn.modal.Constructor.VERSION)) {
             version = 'v3.3';  // v3.3.1, v3.3.2
-        } else if (/4\.0\.\d+(-(alpha|beta|rc)\.\d+)?/.test($.fn.modal.Constructor.VERSION)) {
-            version = 'v4.0';
+        } else if (/4\.\d\.\d+/.test($.fn.modal.Constructor.VERSION)) { //FIXME for BootstrapV4
+            version = 'v4.1';
         } else {
             version = 'v3.3.4';
         }
@@ -92,21 +92,21 @@
             $(document).off('focusin.bs.modal');
 
             this.$element
-            .removeClass('in')
-            .attr('aria-hidden', true)
-            .off('click.dismiss.bs.modal');
+                .removeClass('in')
+                .attr('aria-hidden', true)
+                .off('click.dismiss.bs.modal');
 
             $.support.transition && this.$element.hasClass('fade') ?
-            this.$element
-            .one('bsTransitionEnd', $.proxy(this.hideModal, this))
-            .emulateTransitionEnd(300) :
-            this.hideModal();
+                this.$element
+                    .one('bsTransitionEnd', $.proxy(this.hideModal, this))
+                    .emulateTransitionEnd(300) :
+                this.hideModal();
         }
     };
     BootstrapDialogModal.METHODS_TO_OVERRIDE['v3.3'] = {
         /**
          * Overrided.
-         * 
+         *
          * @returns {undefined}
          */
         setScrollbar: function () {
@@ -117,7 +117,7 @@
         },
         /**
          * Overrided.
-         * 
+         *
          * @returns {undefined}
          */
         resetScrollbar: function () {
@@ -128,7 +128,7 @@
         },
         /**
          * Overrided.
-         * 
+         *
          * @returns {undefined}
          */
         hideModal: function () {
@@ -145,12 +145,12 @@
         }
     };
     BootstrapDialogModal.METHODS_TO_OVERRIDE['v3.3.4'] = $.extend({}, BootstrapDialogModal.METHODS_TO_OVERRIDE['v3.3']);
-    BootstrapDialogModal.METHODS_TO_OVERRIDE['v4.0'] = $.extend({}, BootstrapDialogModal.METHODS_TO_OVERRIDE['v3.3']);
+    BootstrapDialogModal.METHODS_TO_OVERRIDE['v4.1'] = $.extend({}, BootstrapDialogModal.METHODS_TO_OVERRIDE['v3.3']); //FIXME for BootstrapV4
     BootstrapDialogModal.prototype = {
         constructor: BootstrapDialogModal,
         /**
          * New function, to get the dialogs that opened by BootstrapDialog.
-         * 
+         *
          * @returns {undefined}
          */
         getGlobalOpenedDialogs: function () {
@@ -202,29 +202,38 @@
     BootstrapDialog.TYPE_DEFAULT = 'type-default';
     BootstrapDialog.TYPE_INFO = 'type-info';
     BootstrapDialog.TYPE_PRIMARY = 'type-primary';
+    BootstrapDialog.TYPE_SECONDARY = 'type-secondary';
     BootstrapDialog.TYPE_SUCCESS = 'type-success';
     BootstrapDialog.TYPE_WARNING = 'type-warning';
     BootstrapDialog.TYPE_DANGER = 'type-danger';
+    BootstrapDialog.TYPE_DARK = 'type-dark';
+    BootstrapDialog.TYPE_LIGHT = 'type-light';
     BootstrapDialog.DEFAULT_TEXTS = {};
-    BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT] = 'Information';
+    BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT] = 'Default';
     BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_INFO] = 'Information';
-    BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_PRIMARY] = 'Information';
+    BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_PRIMARY] = 'Primary';
+    BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_SECONDARY] = 'Secondary';
     BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_SUCCESS] = 'Success';
     BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_WARNING] = 'Warning';
     BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DANGER] = 'Danger';
+    BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DARK] = 'Dark';
+    BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_LIGHT] = 'Light';
     BootstrapDialog.DEFAULT_TEXTS['OK'] = 'OK';
     BootstrapDialog.DEFAULT_TEXTS['CANCEL'] = 'Cancel';
     BootstrapDialog.DEFAULT_TEXTS['CONFIRM'] = 'Confirmation';
     BootstrapDialog.SIZE_NORMAL = 'size-normal';
     BootstrapDialog.SIZE_SMALL = 'size-small';
     BootstrapDialog.SIZE_WIDE = 'size-wide';    // size-wide is equal to modal-lg
+    BootstrapDialog.SIZE_EXTRAWIDE = 'size-extrawide';    // size-wide is equal to modal-lg
     BootstrapDialog.SIZE_LARGE = 'size-large';
     BootstrapDialog.BUTTON_SIZES = {};
     BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_NORMAL] = '';
-    BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_SMALL] = '';
-    BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_WIDE] = '';
+    BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_SMALL] = 'btn-small';
+    BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_WIDE] = 'btn-block';
     BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_LARGE] = 'btn-lg';
     BootstrapDialog.ICON_SPINNER = 'glyphicon glyphicon-asterisk';
+    BootstrapDialog.BUTTONS_ORDER_CANCEL_OK = 'btns-order-cancel-ok';
+    BootstrapDialog.BUTTONS_ORDER_OK_CANCEL = 'btns-order-ok-cancel';
 
     /**
      * Default options.
@@ -233,8 +242,6 @@
         type: BootstrapDialog.TYPE_PRIMARY,
         size: BootstrapDialog.SIZE_NORMAL,
         cssClass: '',
-        //Added the title icon class
-        titleIconCssClass:'',
         title: null,
         message: null,
         nl2br: true,
@@ -247,7 +254,8 @@
         draggable: false,
         animate: true,
         description: '',
-        tabindex: -1
+        tabindex: -1,
+        btnsOrder: BootstrapDialog.BUTTONS_ORDER_CANCEL_OK
     };
 
     /**
@@ -274,7 +282,7 @@
 
     /**
      * Get dialog instance by given id.
-     * 
+     *
      * @returns dialog instance
      */
     BootstrapDialog.getDialog = function (id) {
@@ -288,7 +296,7 @@
 
     /**
      * Set a dialog.
-     * 
+     *
      * @returns the dialog that has just been set.
      */
     BootstrapDialog.setDialog = function (dialog) {
@@ -299,7 +307,7 @@
 
     /**
      * Alias of BootstrapDialog.setDialog(dialog)
-     * 
+     *
      * @param {type} dialog
      * @returns {unresolved}
      */
@@ -333,7 +341,7 @@
         },
         /**
          * To make multiple opened dialogs look better.
-         * 
+         *
          * Will be removed in later version, after Bootstrap Modal >= 3.3.0, updating z-index is unnecessary.
          */
         updateZIndex: function () {
@@ -347,7 +355,7 @@
                     }
                 });
                 var $modal = this.getModal();
-                var $backdrop = this.getModalBackdrop($modal);
+                var $backdrop = this.getModalBackdrop($modal); //FIXME for BootstrapV4
                 $modal.css('z-index', zIndexModal + (dialogCount - 1) * 20);
                 $backdrop.css('z-index', zIndexBackdrop + (dialogCount - 1) * 20);
             }
@@ -369,14 +377,25 @@
     };
     BootstrapDialog.METHODS_TO_OVERRIDE['v3.3'] = {};
     BootstrapDialog.METHODS_TO_OVERRIDE['v3.3.4'] = $.extend({}, BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']);
-    BootstrapDialog.METHODS_TO_OVERRIDE['v4.0'] = {
+    BootstrapDialog.METHODS_TO_OVERRIDE['v4.0'] = { //FIXME for BootstrapV4
         getModalBackdrop: function ($modal) {
             return $($modal.data('bs.modal')._backdrop);
         },
         handleModalBackdropEvent: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['handleModalBackdropEvent'],
         updateZIndex: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['updateZIndex'],
         open: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['open'],
-        getModalForBootstrapDialogModal : function () {
+        getModalForBootstrapDialogModal: function () {
+            return this.getModal().get(0);
+        }
+    };
+    BootstrapDialog.METHODS_TO_OVERRIDE['v4.1'] = { //FIXME for BootstrapV4
+        getModalBackdrop: function ($modal) {
+            return $($modal.data('bs.modal')._backdrop);
+        },
+        handleModalBackdropEvent: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['handleModalBackdropEvent'],
+        updateZIndex: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['updateZIndex'],
+        open: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['open'],
+        getModalForBootstrapDialogModal: function () {
             return this.getModal().get(0);
         }
     };
@@ -394,18 +413,18 @@
         },
         initModalStuff: function () {
             this.setModal(this.createModal())
-            .setModalDialog(this.createModalDialog())
-            .setModalContent(this.createModalContent())
-            .setModalHeader(this.createModalHeader())
-            .setModalBody(this.createModalBody())
-            .setModalFooter(this.createModalFooter());
+                .setModalDialog(this.createModalDialog())
+                .setModalContent(this.createModalContent())
+                .setModalHeader(this.createModalHeader())
+                .setModalBody(this.createModalBody())
+                .setModalFooter(this.createModalFooter());
 
             this.getModal().append(this.getModalDialog());
             this.getModalDialog().append(this.getModalContent());
             this.getModalContent()
-            .append(this.getModalHeader())
-            .append(this.getModalBody())
-            .append(this.getModalFooter());
+                .append(this.getModalHeader())
+                .append(this.getModalBody())
+                .append(this.getModalFooter());
 
             return this;
         },
@@ -424,10 +443,10 @@
 
             return this;
         },
-        getModalBackdrop: function ($modal) {
-        	return $modal.data('bs.modal').$backdrop;
+        getModalBackdrop: function ($modal) { //FIXME for BootstrapV4
+            return $modal.data('bs.modal').$backdrop;
         },
-        getModalForBootstrapDialogModal: function () {
+        getModalForBootstrapDialogModal: function () { //FIXME for BootstrapV4
             return this.getModal();
         },
         createModalDialog: function () {
@@ -453,8 +472,7 @@
             return this;
         },
         createModalHeader: function () {
-            //remove default padding from title
-            return $('<div class="modal-header" style="padding-bottom: 0px;"></div>');
+            return $('<div class="modal-header"></div>');
         },
         getModalHeader: function () {
             return this.$modalHeader;
@@ -536,8 +554,11 @@
                 var types = [BootstrapDialog.TYPE_DEFAULT,
                     BootstrapDialog.TYPE_INFO,
                     BootstrapDialog.TYPE_PRIMARY,
+                    BootstrapDialog.TYPE_SECONDARY,
                     BootstrapDialog.TYPE_SUCCESS,
                     BootstrapDialog.TYPE_WARNING,
+                    BootstrapDialog.TYPE_DARK,
+                    BootstrapDialog.TYPE_LIGHT,
                     BootstrapDialog.TYPE_DANGER];
 
                 this.getModal().removeClass(types.join(' ')).addClass(this.getType());
@@ -560,9 +581,10 @@
 
                 // Dialog size
                 this.getModal().removeClass(BootstrapDialog.SIZE_NORMAL)
-                .removeClass(BootstrapDialog.SIZE_SMALL)
-                .removeClass(BootstrapDialog.SIZE_WIDE)
-                .removeClass(BootstrapDialog.SIZE_LARGE);
+                    .removeClass(BootstrapDialog.SIZE_SMALL)
+                    .removeClass(BootstrapDialog.SIZE_WIDE)
+                    .removeClass(BootstrapDialog.SIZE_EXTRAWIDE)
+                    .removeClass(BootstrapDialog.SIZE_LARGE);
                 this.getModal().addClass(this.getSize());
 
                 // Smaller dialog.
@@ -575,6 +597,11 @@
                 this.getModalDialog().removeClass('modal-lg');
                 if (this.getSize() === BootstrapDialog.SIZE_WIDE) {
                     this.getModalDialog().addClass('modal-lg');
+                }
+                // Extra Wide Dialog.
+                this.getModalDialog().removeClass('modal-xl');
+                if (this.getSize() === BootstrapDialog.SIZE_EXTRAWIDE) {
+                    this.getModalDialog().addClass('modal-xl');
                 }
 
                 // Button size
@@ -780,39 +807,28 @@
             return BootstrapDialog.NAMESPACE + '-' + name;
         },
         createHeaderContent: function () {
-            //update to take up the entire space
-            var $container = $('<div style="width:100%"></div>');
+            var $container = $('<div></div>');
             $container.addClass(this.getNamespace('header'));
-            
-            //title icon
-            $container.append(this.createTitleIconContent());
+
             // title
             $container.append(this.createTitleContent());
 
             // Close button
-            // Given move to flexbox, alignment of dismiss icons in the header is likely broken as we?e no longer using floats. Floated content comes first, but with flexbox that? no longer the case. Update your dismiss icons to come after modal titles to fix.
-            $container.append(this.createCloseButton());
+            $container.prepend(this.createCloseButton());
 
             return $container;
         },
-        
         createTitleContent: function () {
             var $title = $('<div></div>');
             $title.addClass(this.getNamespace('title'));
 
             return $title;
         },
-        
-        createTitleIconContent: function () {
-            var $title = $('<span aria-hidden="true"><i' + this.options.titleIconCssClass + '><i></span>');
-            return $title;
-        },
         createCloseButton: function () {
             var $container = $('<div></div>');
             $container.addClass(this.getNamespace('close-button'));
-            //alpha 6 close button updates
-            var $icon = $('<button type="button" class="close" aria-label="Close" data-dismiss="modal"></button>');
-            $icon.append('<span aria-hidden="true">' + this.options.closeIcon + '</span>');
+            var $icon = $('<button class="close" aria-label="close"></button>');
+            $icon.append(this.options.closeIcon);
             $container.append($icon);
             $container.on('click', {dialog: this}, function (event) {
                 event.data.dialog.close();
@@ -872,11 +888,23 @@
                 $button.append(button.label);
             }
 
+            // title
+            if (typeof button.title !== 'undefined') {
+                $button.attr('title', button.title);
+            }
+
             // Css class
             if (typeof button.cssClass !== 'undefined' && $.trim(button.cssClass) !== '') {
                 $button.addClass(button.cssClass);
             } else {
                 $button.addClass('btn-default');
+            }
+
+            // Data attributes
+            if (typeof button.data === 'object' && button.data.constructor === {}.constructor) {
+                $.each(button.data, function (key, value) {
+                    $button.attr('data-' + key, value);
+                });
             }
 
             // Hotkey
@@ -932,7 +960,7 @@
             $button.enable = function () {
                 var $this = this;
                 $this.toggleEnable(true);
-f
+
                 return $this;
             };
             $button.disable = function () {
@@ -1097,6 +1125,9 @@ f
                     $(this).remove();
                 }
                 BootstrapDialog.moveFocus();
+                if ($('.modal').hasClass('in')) {
+                    $('body').addClass('modal-open');
+                }
             });
 
             // Backdrop, I did't find a way to change bs3 backdrop option after the dialog is popped up, so here's a new wheel.
@@ -1112,7 +1143,7 @@ f
                 var dialog = event.data.dialog;
                 if (typeof dialog.registeredButtonHotkeys[event.which] !== 'undefined') {
                     var $button = $(dialog.registeredButtonHotkeys[event.which]);
-                    !$button.prop('disabled') && $button.focus().trigger('click');
+                    !$button.prop('disabled') && !$button.is(':focus') && $button.focus().trigger('click');
                 }
             });
 
@@ -1159,7 +1190,7 @@ f
         realize: function () {
             this.initModalStuff();
             this.getModal().addClass(BootstrapDialog.NAMESPACE)
-            .addClass(this.getCssClass());
+                .addClass(this.getCssClass());
             this.updateSize();
             if (this.getDescription()) {
                 this.getModal().attr('aria-describedby', this.getDescription());
@@ -1167,8 +1198,8 @@ f
             this.getModalFooter().append(this.createFooterContent());
             this.getModalHeader().append(this.createHeaderContent());
             this.getModalBody().append(this.createBodyContent());
-            this.getModal().data('bs.modal', new BootstrapDialogModal(this.getModalForBootstrapDialogModal(), {
-                backdrop: true,
+            this.getModal().data('bs.modal', new BootstrapDialogModal(this.getModalForBootstrapDialogModal(), { //FIXME for BootstrapV4
+                backdrop: 'static',
                 keyboard: false,
                 show: false
             }));
@@ -1188,8 +1219,8 @@ f
         },
         open: function () {
             !this.isRealized() && this.realize();
-            $('body').add(this.getModal()); //Must be added to the dom before calling show for alpha 6
             this.getModal().modal('show');
+
             return this;
         },
         close: function () {
@@ -1245,6 +1276,7 @@ f
             closable: false,
             draggable: false,
             buttonLabel: BootstrapDialog.DEFAULT_TEXTS.OK,
+            buttonHotkey: null,
             callback: null
         };
 
@@ -1261,6 +1293,7 @@ f
         dialog.setData('callback', alertOptions.callback);
         dialog.addButton({
             label: alertOptions.buttonLabel,
+            hotkey: alertOptions.buttonHotkey,
             action: function (dialog) {
                 if (typeof dialog.getData('callback') === 'function' && dialog.getData('callback').call(this, true) === false) {
                     return false;
@@ -1314,8 +1347,11 @@ f
             draggable: false,
             btnCancelLabel: BootstrapDialog.DEFAULT_TEXTS.CANCEL,
             btnCancelClass: null,
+            btnCancelHotkey: null,
             btnOKLabel: BootstrapDialog.DEFAULT_TEXTS.OK,
             btnOKClass: null,
+            btnOKHotkey: null,
+            btnsOrder: BootstrapDialog.defaultOptions.btnsOrder,
             callback: null
         };
         if (typeof arguments[0] === 'object' && arguments[0].constructor === {}.constructor) {
@@ -1332,9 +1368,11 @@ f
 
         var dialog = new BootstrapDialog(confirmOptions);
         dialog.setData('callback', confirmOptions.callback);
-        dialog.addButton({
+
+        var buttons = [{
             label: confirmOptions.btnCancelLabel,
             cssClass: confirmOptions.btnCancelClass,
+            hotkey: confirmOptions.btnCancelHotkey,
             action: function (dialog) {
                 if (typeof dialog.getData('callback') === 'function' && dialog.getData('callback').call(this, false) === false) {
                     return false;
@@ -1342,10 +1380,10 @@ f
 
                 return dialog.close();
             }
-        });
-        dialog.addButton({
+        }, {
             label: confirmOptions.btnOKLabel,
             cssClass: confirmOptions.btnOKClass,
+            hotkey: confirmOptions.btnOKHotkey,
             action: function (dialog) {
                 if (typeof dialog.getData('callback') === 'function' && dialog.getData('callback').call(this, true) === false) {
                     return false;
@@ -1353,7 +1391,11 @@ f
 
                 return dialog.close();
             }
-        });
+        }];
+        if (confirmOptions.btnsOrder === BootstrapDialog.BUTTONS_ORDER_OK_CANCEL) {
+            buttons.reverse();
+        }
+        dialog.addButtons(buttons);
 
         return dialog.open();
 
