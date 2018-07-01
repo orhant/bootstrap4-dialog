@@ -1,3 +1,10 @@
+Bootstrap-Dialog for Bootstrap 4.1
+
+## Fully compatible with Bootstrap 4.1
+## Includes size-extrawide full width display
+## Includes all colour themes from Bootstrap 4
+
+
 bootstrap-dialog
 ================
 
