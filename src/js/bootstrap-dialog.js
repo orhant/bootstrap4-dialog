@@ -412,6 +412,8 @@
             return this;
         },
         initModalStuff: function () {
+
+
             this.setModal(this.createModal())
                 .setModalDialog(this.createModalDialog())
                 .setModalContent(this.createModalContent())
@@ -425,6 +427,8 @@
                 .append(this.getModalHeader())
                 .append(this.getModalBody())
                 .append(this.getModalFooter());
+
+
 
             return this;
         },
@@ -814,7 +818,7 @@
             $container.append(this.createTitleContent());
 
             // Close button
-            $container.prepend(this.createCloseButton());
+            $container.append(this.createCloseButton());
 
             return $container;
         },
