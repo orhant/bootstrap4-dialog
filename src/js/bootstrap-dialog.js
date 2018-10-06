@@ -769,7 +769,7 @@
                 if (this.getButtons().length === 0) {
                     this.getModalFooter().hide();
                 } else {
-                    this.getModalFooter().show().find('.' + this.getNamespace('footer')).html('').append(this.createFooterButtons());
+                    this.getModalFooter().show().closest('.modal-footer').append(this.createFooterButtons());
                 }
             }
 
@@ -863,8 +863,11 @@
         },
         createFooterButtons: function () {
             var that = this;
-            var $container = $('<div></div>');
-            $container.addClass(this.getNamespace('footer-buttons'));
+
+            var $container = that.$modalFooter;// $('<div></div>');
+            //$container.addClass(this.getNamespace('footer-buttons'));
+
+
             this.indexedButtons = {};
             $.each(this.options.buttons, function (index, button) {
                 if (!button.id) {
@@ -936,6 +939,8 @@
             if (typeof button.enabled !== 'undefined') {
                 $button.toggleEnable(button.enabled);
             }
+
+            $button.addClass("bootstrap4-dialog-button");
 
             return $button;
         },
@@ -1199,7 +1204,7 @@
             if (this.getDescription()) {
                 this.getModal().attr('aria-describedby', this.getDescription());
             }
-            this.getModalFooter().append(this.createFooterContent());
+            //this.getModalFooter().append(this.createFooterContent());
             this.getModalHeader().append(this.createHeaderContent());
             this.getModalBody().append(this.createBodyContent());
             this.getModal().data('bs.modal', new BootstrapDialogModal(this.getModalForBootstrapDialogModal(), { //FIXME for BootstrapV4

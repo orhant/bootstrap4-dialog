@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>JS Bin</title>
-  
+
   <link href="https://jwebmp.com/bower_components/bootstrap4/dist/css/bootstrap.min.css?v=4.11" rel="stylesheet" type="text/css">
 
   <link href="../dist/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css">
@@ -48,8 +48,41 @@
         });">
     Click to open dialog
   </button>
-  
-  
-  
+
+
+
+<script>
+  BootstrapDialog.show({
+  title: 'More dialog sizes',
+  message: 'Hi Apple!',
+  buttons: [{
+  label: 'Normal',
+  action: function(dialog){
+  dialog.setTitle('Normal');
+  dialog.setSize(BootstrapDialog.SIZE_NORMAL);
+  }
+  }, {
+  label: 'Small',
+  action: function(dialog){
+  dialog.setTitle('Small');
+  dialog.setSize(BootstrapDialog.SIZE_SMALL);
+  }
+  }, {
+  label: 'Wide',
+  action: function(dialog){
+  dialog.setTitle('Wide');
+  dialog.setSize(BootstrapDialog.SIZE_WIDE);
+  }
+  }, {
+  label: 'Large',
+  action: function(dialog){
+  dialog.setTitle('Large');
+  dialog.setSize(BootstrapDialog.SIZE_LARGE);
+  }
+  }]
+  });
+
+</script>
+
 </body>
 </html>
