@@ -904,7 +904,7 @@
             if (typeof button.cssClass !== 'undefined' && $.trim(button.cssClass) !== '') {
                 $button.addClass(button.cssClass);
             } else {
-                $button.addClass('btn-default');
+                $button.addClass('btn-secondary');
             }
 
             // Data attributes
