@@ -29,7 +29,7 @@
         root.BootstrapDialog = factory(root.jQuery);
     }
 
-}(this, function ($) {
+}(this ? this : globalThis ? globalThis : global ? global : window, function ($) {
 
     "use strict";
 
