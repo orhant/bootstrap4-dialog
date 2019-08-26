@@ -1,6 +1,6 @@
 {
   "name": "bootstrap4-dialog",
-  "version": "4.1.1",
+  "version": "4.3.1",
   "description": "Make use of Bootstrap Modal more monkey-friendly.",
   "directories": {
     "example": "examples"
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/GedMarc/bootstrap4-dialog",
   "devDependencies": {
-    "bootstrap": ">=3.1.0",
+    "bootstrap": ">=4.3.1",
     "eslint": ">=0.6.2",
     "gulp": ">=3.8.1",
     "gulp-clean": ">=0.3.0",
