@@ -234,6 +234,8 @@
     BootstrapDialog.ICON_SPINNER = 'glyphicon glyphicon-asterisk';
     BootstrapDialog.BUTTONS_ORDER_CANCEL_OK = 'btns-order-cancel-ok';
     BootstrapDialog.BUTTONS_ORDER_OK_CANCEL = 'btns-order-ok-cancel';
+    BootstrapDialog.Z_INDEX_BACKDROP = 1040;
+    BootstrapDialog.Z_INDEX_MODAL = 1050;
 
     /**
      * Default options.
@@ -346,8 +348,8 @@
          */
         updateZIndex: function () {
             if (this.isOpened()) {
-                var zIndexBackdrop = 1040;
-                var zIndexModal = 1050;
+                var zIndexBackdrop = BootstrapDialog.Z_INDEX_BACKDROP;
+                var zIndexModal = BootstrapDialog.Z_INDEX_MODAL;
                 var dialogCount = 0;
                 $.each(BootstrapDialog.dialogs, function (dialogId, dialogInstance) {
                     if (dialogInstance.isRealized() && dialogInstance.isOpened()) {
