@@ -334,13 +334,6 @@
 
     BootstrapDialog.METHODS_TO_OVERRIDE = {};
     BootstrapDialog.METHODS_TO_OVERRIDE['v3.1'] = {
-        handleModalBackdropEvent: function () {
-            this.getModal().on('click', {dialog: this}, function (event) {
-                event.target === this && event.data.dialog.isClosable() && event.data.dialog.canCloseByBackdrop() && event.data.dialog.close();
-            });
-
-            return this;
-        },
         /**
          * To make multiple opened dialogs look better.
          *
@@ -373,7 +366,6 @@
         }
     };
     BootstrapDialog.METHODS_TO_OVERRIDE['v3.2'] = {
-        handleModalBackdropEvent: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['handleModalBackdropEvent'],
         updateZIndex: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['updateZIndex'],
         open: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['open']
     };
@@ -383,7 +375,6 @@
         getModalBackdrop: function ($modal) {
             return $($modal.data('bs.modal')._backdrop);
         },
-        handleModalBackdropEvent: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['handleModalBackdropEvent'],
         updateZIndex: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['updateZIndex'],
         open: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['open'],
         getModalForBootstrapDialogModal: function () {
@@ -394,7 +385,6 @@
         getModalBackdrop: function ($modal) {
             return $($modal.data('bs.modal')._backdrop);
         },
-        handleModalBackdropEvent: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['handleModalBackdropEvent'],
         updateZIndex: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['updateZIndex'],
         open: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['open'],
         getModalForBootstrapDialogModal: function () {
@@ -1141,9 +1131,6 @@
                 }
             });
 
-            // Backdrop, I did't find a way to change bs3 backdrop option after the dialog is popped up, so here's a new wheel.
-            this.handleModalBackdropEvent();
-
             // ESC key support
             this.getModal().on('keyup', {dialog: this}, function (event) {
                 event.which === 27 && event.data.dialog.isClosable() && event.data.dialog.canCloseByKeyboard() && event.data.dialog.close();
@@ -1156,13 +1143,6 @@
                     var $button = $(dialog.registeredButtonHotkeys[event.which]);
                     !$button.prop('disabled') && !$button.is(':focus') && $button.focus().trigger('click');
                 }
-            });
-
-            return this;
-        },
-        handleModalBackdropEvent: function () {
-            this.getModal().on('click', {dialog: this}, function (event) {
-                $(event.target).hasClass('modal-backdrop') && event.data.dialog.isClosable() && event.data.dialog.canCloseByBackdrop() && event.data.dialog.close();
             });
 
             return this;
@@ -1210,7 +1190,7 @@
             this.getModalHeader().append(this.createHeaderContent());
             this.getModalBody().append(this.createBodyContent());
             this.getModal().data('bs.modal', new BootstrapDialogModal(this.getModalForBootstrapDialogModal(), { //FIXME for BootstrapV4
-                backdrop: 'static',
+                backdrop: this.canCloseByBackdrop() ? true : 'static',
                 keyboard: false,
                 show: false
             }));
