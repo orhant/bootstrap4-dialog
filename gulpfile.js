@@ -2,57 +2,91 @@
 
 "use strict";
 
-var gulp = require("gulp"),
-  sass = require("gulp-sass"),
-  minifyCSS = require("gulp-minify-css"),
-  notify = require("gulp-notify"),
-  clean = require("gulp-clean"),
-  rename = require("gulp-rename"),
-  concat = require("gulp-concat"),
-  uglify = require("gulp-uglify");
+const FOLDER_SRC = "src"
+    , FOLDER_DIST = "dist"
+    , FOLDER_JS = "js"
+    , FOLDER_CSS = "css"
+    , FOLDER_SASS = "scss"
 
-var sass_src = [
-  "node_modules/bootstrap/scss/variables.scss", 
-  "node_modules/bootstrap/scss/mixins/*.scss",
-  "src/scss/bootstrap-dialog.scss"
-];
+    , FOLDER_SRC_SCSS = FOLDER_SRC + "/" + FOLDER_SASS
+    , FOLDER_SRC_JS = FOLDER_SRC + "/" + FOLDER_JS
+    , FOLDER_DIST_CSS = FOLDER_DIST + "/" + FOLDER_CSS
+    , FOLDER_DIST_JS = FOLDER_DIST + "/" + FOLDER_JS
+    ;
 
-gulp.task("sass", function () {
-    gulp.src(sass_src)
-    .pipe(concat("bootstrap-dialog.scss"))
-    .pipe(gulp.dest("dist/scss"))
-    .pipe(sass())
-    .pipe(gulp.dest("dist/css"))
-    .pipe(gulp.dest("src/css"))
-    .pipe(rename("bootstrap-dialog.min.css"))
-    .pipe(minifyCSS())
-    .pipe(gulp.dest("dist/css"));
-});
 
-gulp.task("lint", function() {
-  gulp.src(["src/js/bootstrap-dialog.js"])
-    .pipe(eslint())
-    .pipe(eslint.format());
-});
+//var gulp = require("gulp"),
+//    sass = require("gulp-sass"),
+//    minifyCSS = require("gulp-minify-css"),
+//    notify = require("gulp-notify"),
+//    clean = require("gulp-clean"),
+//    rename = require("gulp-rename"),
+//    uglify = require("gulp-uglify");
 
-gulp.task("dist", ["clean", "sass"], function() {
-  gulp.src(["src/js/bootstrap-dialog.js"])
-    .pipe(gulp.dest("dist/js"))
-    .pipe(rename("bootstrap-dialog.min.js"))
-    .pipe(uglify())
-    .pipe(gulp.dest("dist/js"))
-    .pipe(notify({
-      message: "Build task completed."
-    }));
-});
+//gulp.task("sass", function () {
+//    return gulp.src(FOLDER_SRC_SCSS + "/bootstrap-dialog.scss")
+//        .pipe(sass())
+//        .pipe(gulp.dest(FOLDER_DIST_CSS))
+//});
 
-gulp.task("clean", function() {
-  return gulp.src(["dist/"], {
-    read: false
-  })
-    .pipe(clean());
-});
+//gulp.task("minifycss", function () {
+//    return gulp.src(FOLDER_DIST_CSS + "/**/*.css")
+//        .pipe(minifyCSS())
+//        .pipe(gulp.dest(FOLDER_DIST_CSS))
+//});
 
-gulp.task("default", ["clean"], function() {
-  gulp.start("dist");
-});
+//gulp.task("lint", function () {
+//    gulp.src([FOLDER_SRC_JS + "/bootstrap-dialog.js"])
+//        .pipe(eslint())
+//        .pipe(eslint.format());
+//});
+
+//gulp.task("dist", ["clean", "sass"], function () {
+//    gulp.src([FOLDER_SRC_JS + "/bootstrap-dialog.js"])
+//        .pipe(gulp.dest(FOLDER_DIST_JS))
+//        .pipe(rename("bootstrap-dialog.min.js"))
+//        .pipe(uglify())
+//        .pipe(gulp.dest(FOLDER_DIST_JS))
+//        .pipe(notify({
+//            message: "Build task completed."
+//        }));
+//});
+
+//gulp.task("clean", function () {
+//    return gulp.src([FOLDER_DIST + "/"], {
+//        read: false
+//    })
+//        .pipe(clean());
+//});
+
+//gulp.task("default", ["clean"], function () {
+//    //gulp.start("dist");
+//});
+
+const { series, parallel, src, dest } = require('gulp');
+const clean = require("gulp-clean");
+const sass = require("gulp-sass");
+const minifyCSS = require("gulp-minify-css");
+
+function reset(cb) {
+    src([FOLDER_DIST + "/**/"], { read: false }).pipe(clean());
+    cb();
+}
+
+function css(cb) {
+    src(FOLDER_SRC_SCSS + "/bootstrap-dialog.scss")
+        .pipe(sass())
+        .pipe(dest(FOLDER_DIST_CSS));
+
+    src(FOLDER_DIST_CSS + "/**/*.css")
+        .pipe(minifyCSS())
+        .pipe(dest(FOLDER_DIST_CSS));
+
+    cb();
+}
+
+function js(cb) {
+    cb();
+}
+
+exports.default = series(reset, parallel(css, js));
