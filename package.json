@@ -1,6 +1,6 @@
 {
-  "name": "bootstrap3-dialog",
-  "version": "1.35.2",
+  "name": "bootstrap4-dialog",
+  "version": "4.3.1",
   "description": "Make use of Bootstrap Modal more monkey-friendly.",
   "directories": {
     "example": "examples"
@@ -11,29 +11,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nakupanda/bootstrap3-dialog.git"
+    "url": "https://github.com/GedMarc/bootstrap4-dialog"
   },
   "keywords": [
     "bootstrap",
     "dialog"
   ],
-  "author": "nakupanda",
+  "author": "eugenemayer/nakupanda/gedmarc",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nakupanda/bootstrap3-dialog/issues"
+    "url": "https://github.com/GedMarc/bootstrap4-dialog/issues"
   },
-  "homepage": "http://nakupanda.github.io/bootstrap3-dialog",
+  "homepage": "https://github.com/GedMarc/bootstrap4-dialog",
   "devDependencies": {
-    "bootstrap": ">=3.1.0",
+    "bootstrap": ">=4.3.1",
     "eslint": ">=0.6.2",
-    "gulp": ">=3.8.1",
+    "gulp": "^4.0.2",
     "gulp-clean": ">=0.3.0",
-    "gulp-concat": "^2.5.2",
+    "gulp-concat": "^2.6.1",
     "gulp-eslint": ">=0.1.7",
-    "gulp-less": ">=1.2.3",
     "gulp-minify-css": "^0.3.4",
     "gulp-notify": ">=1.3.1",
     "gulp-rename": ">=1.2.0",
+    "gulp-sass": "^4.0.2",
     "gulp-streamify": "0.0.5",
     "gulp-uglify": ">=0.3.0",
     "vinyl-source-stream": "^0.1.1"
