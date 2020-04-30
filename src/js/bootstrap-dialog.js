@@ -1202,7 +1202,7 @@
             this.getModalHeader().append(this.createHeaderContent());
             this.getModalBody().append(this.createBodyContent());
             this.getModal().data('bs.modal', new BootstrapDialogModal(this.getModalForBootstrapDialogModal(), { //FIXME for BootstrapV4
-                backdrop: this.canCloseByBackdrop() ? true : 'static',
+                backdrop: (this.isClosable() && this.canCloseByBackdrop()) ? true : 'static',
                 keyboard: false,
                 show: false
             }));
