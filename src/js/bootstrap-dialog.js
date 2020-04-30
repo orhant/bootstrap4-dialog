@@ -1,4 +1,14 @@
-
+/* ================================================	
+ * Make use of Bootstrap's modal more monkey-friendly.	
+ *	
+ * For Bootstrap 3.	
+ *	
+ * javanoob@hotmail.com	
+ *	
+ * https://github.com/nakupanda/bootstrap3-dialog	
+ *	
+ * Licensed under The MIT License.	
+ * ================================================ */
 (function (root, factory) {
 
     "use strict";
@@ -361,7 +371,6 @@
         }
     };
     BootstrapDialog.METHODS_TO_OVERRIDE['v3.2'] = {
-        handleModalBackdropEvent: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['handleModalBackdropEvent'],
         updateZIndex: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['updateZIndex'],
         open: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['open']
     };
@@ -371,7 +380,6 @@
         getModalBackdrop: function ($modal) {
             return $($modal.data('bs.modal')._backdrop);
         },
-        handleModalBackdropEvent: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['handleModalBackdropEvent'],
         updateZIndex: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['updateZIndex'],
         open: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['open'],
         getModalForBootstrapDialogModal: function () {
@@ -382,7 +390,6 @@
         getModalBackdrop: function ($modal) {
             return $($modal.data('bs.modal')._backdrop);
         },
-        handleModalBackdropEvent: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['handleModalBackdropEvent'],
         updateZIndex: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['updateZIndex'],
         open: BootstrapDialog.METHODS_TO_OVERRIDE['v3.1']['open'],
         getModalForBootstrapDialogModal: function () {
@@ -1129,9 +1136,6 @@
                 }
             });
 
-            // Backdrop, I did't find a way to change bs3 backdrop option after the dialog is popped up, so here's a new wheel.
-            this.handleModalBackdropEvent();
-
             // ESC key support
             this.getModal().on('keyup', { dialog: this }, function (event) {
                 event.which === 27 && event.data.dialog.isClosable() && event.data.dialog.canCloseByKeyboard() && event.data.dialog.close();
@@ -1198,7 +1202,7 @@
             this.getModalHeader().append(this.createHeaderContent());
             this.getModalBody().append(this.createBodyContent());
             this.getModal().data('bs.modal', new BootstrapDialogModal(this.getModalForBootstrapDialogModal(), { //FIXME for BootstrapV4
-                backdrop: 'static',
+                backdrop: (this.isClosable() && this.canCloseByBackdrop()) ? true : 'static',
                 keyboard: false,
                 show: false
             }));
