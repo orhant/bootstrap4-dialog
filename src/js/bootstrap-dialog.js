@@ -1,3 +1,5 @@
+/* global define */
+
 /* ================================================	
  * Make use of Bootstrap's modal more monkey-friendly.	
  *	
@@ -332,13 +334,6 @@
 
     BootstrapDialog.METHODS_TO_OVERRIDE = {};
     BootstrapDialog.METHODS_TO_OVERRIDE['v3.1'] = {
-        handleModalBackdropEvent: function () {
-            this.getModal().on('click', { dialog: this }, function (event) {
-                event.target === this && event.data.dialog.isClosable() && event.data.dialog.canCloseByBackdrop() && event.data.dialog.close();
-            });
-
-            return this;
-        },
         /**
          * To make multiple opened dialogs look better.
          *
@@ -1148,13 +1143,6 @@
                     var $button = $(dialog.registeredButtonHotkeys[event.which]);
                     !$button.prop('disabled') && !$button.is(':focus') && $button.focus().trigger('click');
                 }
-            });
-
-            return this;
-        },
-        handleModalBackdropEvent: function () {
-            this.getModal().on('click', { dialog: this }, function (event) {
-                $(event.target).hasClass('modal-backdrop') && event.data.dialog.isClosable() && event.data.dialog.canCloseByBackdrop() && event.data.dialog.close();
             });
 
             return this;
