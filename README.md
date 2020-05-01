@@ -1,3 +1,5 @@
+Version 4.3.4 - 1 May 2020
+
 Bootstrap-Dialog for Bootstrap 4.3.1
 
 ## Fully compatible with Bootstrap 4.3.1
@@ -50,7 +52,7 @@ bower install bootstrap-dialog
 Or
 
 ```
-bower install bootstrap3-dialog
+bower install bootstrap4-dialog#https://github.com/GedMarc/bootstrap4-dialog.git
 ```
 
 ================
@@ -58,7 +60,7 @@ bower install bootstrap3-dialog
 ## Install using npm
 
 ```
-npm install --save bootstrap3-dialog
+npm install --save bootstrap4-dialog
 ```
 
 ================
