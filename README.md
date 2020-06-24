@@ -44,13 +44,6 @@ https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dia
 ================
 
 ## Install using Bower
-
-```
-bower install bootstrap-dialog
-```
-
-Or
-
 ```
 bower install bootstrap4-dialog#https://github.com/GedMarc/bootstrap4-dialog.git
 ```

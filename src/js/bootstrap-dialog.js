@@ -1,15 +1,15 @@
 /* global define */
 
-/* ================================================	
- * Make use of Bootstrap's modal more monkey-friendly.	
- *	
- * For Bootstrap 3.	
- *	
- * javanoob@hotmail.com	
- *	
- * https://github.com/nakupanda/bootstrap3-dialog	
- *	
- * Licensed under The MIT License.	
+/* ================================================
+ * Make use of Bootstrap's modal more monkey-friendly.
+ *
+ * For Bootstrap 3.
+ *
+ * javanoob@hotmail.com
+ *
+ * https://github.com/nakupanda/bootstrap3-dialog
+ *
+ * Licensed under The MIT License.
  * ================================================ */
 (function (root, factory) {
 
@@ -1191,7 +1191,7 @@
             this.getModalBody().append(this.createBodyContent());
             this.getModal().data('bs.modal', new BootstrapDialogModal(this.getModalForBootstrapDialogModal(), { //FIXME for BootstrapV4
                 backdrop: (this.isClosable() && this.canCloseByBackdrop()) ? true : 'static',
-                keyboard: false,
+                keyboard: this.options.closeByKeyboard,
                 show: false
             }));
             this.makeModalDraggable();
